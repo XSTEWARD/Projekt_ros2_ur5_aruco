@@ -24,6 +24,8 @@ setup(
     },
     entry_points={
         'console_scripts': [
+           #Dodanie
+            'aruco_node = aruco_controller.aruco_node:main',
         ],
     },
 )
