@@ -26,7 +26,7 @@ class ArucoNode(Node):
         
         #Konfiguracja ArUco (uzywamy slownika 4x4)
         arucoDict = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_4X4_50)
-        arucoParams = cv2.aruco.DetectorParameters()
+        arucoParams = cv2.aruco.DetectorParameters_create()
         
         #Detekcja
         (corners, ids, rejected) = cv2.aruco.detectMarkers(current_frame, arucoDict, parameters=arucoParams)
