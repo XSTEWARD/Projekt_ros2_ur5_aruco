@@ -5,7 +5,9 @@ Projekt sterowania manipulatorem przemysłowym UR5 za pomocą systemu wizyjnego 
 
 Prezentacja działania
 
-TUTAJ FILM!!!!!!!!!!!!!!!!
+
+![Screencastfrom12-24-202510_30_41PM-ezgif com-optimize (1)](https://github.com/user-attachments/assets/6087d76b-3bdf-4019-aaba-86b388273ba7)
+
 
 Funkcjonalności
 - Detekcja ArUco: Wykrywanie znacznika 4x4 i jego pozycji na obrazie.
