@@ -6,7 +6,7 @@ from cv_bridge import CvBridge
 import cv2
 import numpy as np
 
-# Importy do sterowania robotem
+#Importy do sterowania robotem
 from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 from std_msgs.msg import Header
 
@@ -14,21 +14,21 @@ class ArucoNode(Node):
     def __init__(self):
         super().__init__('aruco_node')
         
-        # 1. Subskrypcja kamery
+        #Subskrypcja kamery
         self.subscription = self.create_subscription(
             Image,
             '/image_raw',
             self.image_callback,
             10)
         
-        # 2. Subskrypcja pozycji (zeby STOP dzialal w miejscu)
+        #Subskrypcja pozycji STOP
         self.joint_state_sub = self.create_subscription(
             JointState,
             '/joint_states',
             self.joint_state_callback,
             10)
             
-        # 3. Publikator komend
+        #Publikator komend
         self.publisher_ = self.create_publisher(
             JointTrajectory, 
             '/joint_trajectory_controller/joint_trajectory', 
@@ -57,7 +57,7 @@ class ArucoNode(Node):
             pass
 
     def stop_robot(self):
-        # Hamulec - zatrzymuje w aktualnej pozycji
+        #STOP - zatrzymuje w aktualnej pozycji
         if not self.current_joints:
             return
 
@@ -75,7 +75,7 @@ class ArucoNode(Node):
         self.publisher_.publish(msg)
 
     def send_robot_command(self, position_type):
-        # Jesli komenda ta sama co ostatnio, to ignoruj (chyba ze to STOP - stop zawsze wysylamy)
+        #Jesli komenda ta sama co ostatnio, to ignoruj chyba ze STOP
         if position_type == self.last_command and position_type != "STOP":
             return
 
@@ -86,15 +86,14 @@ class ArucoNode(Node):
         point = JointTrajectoryPoint()
 
         if position_type == "UP":
-            # POZYCJA: PIONOWO (Na bacznosc)
-            # Drugi staw: -1.57 (Pionowo w gore)
+            #Pozycja: PIONOWO
+            #Drugi staw: -1.57 
             point.positions = [0.0, -1.57, 0.0, -1.57, 0.0, 0.0]
             self.get_logger().info('>>> JAZDA W GORE')
             
         elif position_type == "DOWN":
-            # POZYCJA: POZIOMO (Opuszczony)
-            # Drugi staw: -0.5 (Pochylony do przodu/poziomu)
-            # Reszta bez zmian
+            #Pozycja: POZIOMO 
+            #Drugi staw: -0.5
             point.positions = [0.0, -0.5, 0.0, -1.57, 0.0, 0.0]
             self.get_logger().info('>>> JAZDA W DOL')
             
@@ -147,7 +146,7 @@ class ArucoNode(Node):
                     cv2.putText(current_frame, "STOP", (cX + 10, cY), cv2.FONT_HERSHEY_SIMPLEX, 0.7, blue_color, 2)
                     self.send_robot_command("STOP")
         else:
-            # Pamieta ostatni ruch (brak komendy STOP tutaj)
+            #Pamieta ostatni ruch
             cv2.putText(current_frame, "BRAK ZNACZNIKA - PAMIETAM RUCH", (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 0), 2)
 
         cv2.imshow("Panel Sterowania UR5", current_frame)
