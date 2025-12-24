@@ -36,13 +36,13 @@ Uruchomienie
 System wymaga uruchomienia w trzech osobnych terminalach:
 
 Terminal 1: Sterownik kamery
-ros2 run usb_cam usb_cam_node_exe
+- ros2 run usb_cam usb_cam_node_exe
 
 Terminal 2: Symulacja Robota UR5
-ros2 launch ur_robot_driver ur_control.launch.py ur_type:=ur5e use_fake_hardware:=true launch_rviz:=true initial_joint_controller:=joint_trajectory_controller robot_ip:=192.168.56.101
+- ros2 launch ur_robot_driver ur_control.launch.py ur_type:=ur5e use_fake_hardware:=true launch_rviz:=true initial_joint_controller:=joint_trajectory_controller robot_ip:=192.168.56.101
 
 Terminal 3: Węzeł sterujący
-ros2 run aruco_controller aruco_node
+- ros2 run aruco_controller aruco_node
 
 Instrukcja obsługi
 1. Uruchom wszystkie terminale.
